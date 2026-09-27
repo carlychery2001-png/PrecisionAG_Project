@@ -100,12 +100,28 @@ noviembre de 2025). Si Esri actualiza la imagen del lugar, una nueva corrida pue
 - Dos zonas de manejo provisionales (c-medias difuso sobre elevación, pendiente y humedad topográfica) y ocho muestras
   de suelo, cuatro por zona.
 
+## Licencia
+
+- **Código** (`src/` y `run_all.py`): licencia MIT, ver [`LICENSE`](LICENSE).
+- **Datos, mapas, tablas, informe y documentación** (`data/`, `outputs/`, `Informe_Etapa1/` y este `README.md`):
+  Creative Commons Atribución 4.0 Internacional (CC BY 4.0), ver [`LICENSE-CC-BY-4.0.md`](LICENSE-CC-BY-4.0.md).
+  Puede compartirlos y adaptarlos para cualquier fin, incluso comercial, siempre que cite al equipo, enlace la licencia
+  e indique si hizo cambios.
+- No están cubiertos por esas licencias: las capas de Esri de los mapas (la imagen satelital World Imagery y, en el
+  mapa de ubicación, la capa de referencia World Boundaries and Places), que siguen sujetas a los términos de uso de
+  Esri; los logotipos de terceros de `Informe_Etapa1/logo/stack/`, que pertenecen a sus dueños; y las fotografías del
+  equipo de `Informe_Etapa1/fotos/`, con todos los derechos reservados. Estas exclusiones valen también dentro del
+  informe en PDF.
+
 ## Créditos
 
 - Imagen satelital: Esri World Imagery (fuente: Esri, Vantor, Earthstar Geographics y la comunidad de usuarios SIG).
-  Las teselas no se incluyen en el repositorio; el código las descarga.
+  Capa de referencia del mapa de ubicación: Esri World Boundaries and Places (fuente: Esri, HERE, Garmin,
+  © colaboradores de OpenStreetMap y la comunidad de usuarios SIG). Las teselas no se incluyen en el repositorio; el
+  código las descarga.
 - Geoide: EGM2008 (Pavlis et al., 2012), valor obtenido con GeoidEval de GeographicLib.
 - Los logotipos de `Informe_Etapa1/logo/stack/` pertenecen a sus dueños (Python Software Foundation, NumPy, SciPy,
   Matplotlib, OpenStreetMap Foundation, Esri y SingularXYZ) y solo identifican las herramientas usadas. El logotipo
-  de OpenStreetMap se distribuye bajo CC BY-SA.
+  de OpenStreetMap es obra de Ken Vermette y se distribuye bajo CC BY-SA 3.0
+  (https://creativecommons.org/licenses/by-sa/3.0/deed.es); fuente: Wikimedia Commons.
 - Las referencias completas están en el informe.

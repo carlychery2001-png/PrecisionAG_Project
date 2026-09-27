@@ -161,7 +161,8 @@ axb.xaxis.set_major_formatter(fmt_m)
 axb.yaxis.set_major_formatter(fmt_m)
 # Frame of panel b drawn on panel a would be too small to see; the star marks it.
 fig.text(0.995, 0.01, f"CRTM05 (EPSG:5367) · {TXT['img']}: Esri World Imagery; {L['ref']} · Esri, {meta['SOURCE']}, "
-         f"Earthstar Geographics", ha="right", va="bottom", fontsize=5.5, color="#333")
+         f"Earthstar Geographics, HERE, Garmin, © OpenStreetMap contributors", ha="right", va="bottom", fontsize=5.5,
+         color="#333")
 save(fig, OUT["loc"])
 
 # ------------------------------------------------------------- 2. lot polygon map
