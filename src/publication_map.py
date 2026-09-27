@@ -19,7 +19,7 @@ SENS_SMOOTHING = (30.0, 300.0)   # LOOCV-equivalent smoothing values used to rep
 # ------------------------------------------------------------- 1. contour map
 fig, ax, cax, clip = new_map()
 # Perceptually uniform, colour-blind-safe ramp (trimmed plasma, light = high); no greens, so it
-# stands out against the pasture in the imagery
+# stands out against the vegetation in the imagery
 cmap = LinearSegmentedColormap.from_list("elev", plt.cm.plasma(np.linspace(0.12, 0.97, 256)))
 cf = ax.contourf(GX, GY, Z, levels=levels, cmap=cmap, norm=BoundaryNorm(levels, cmap.N), alpha=ELEV_ALPHA)
 c_min = ax.contour(GX, GY, Z, levels=levels[~is_major], colors="#1a1a1a", linewidths=0.35, alpha=0.8)

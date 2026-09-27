@@ -42,10 +42,10 @@
     {\eyebrow[cobreclaro]{Finca Académica de Cultivos \,·\, Universidad EARTH}};
   \node[anchor=north west, inner sep=0pt, text width=16.2cm, align=left, text=white,
         font=\xlight\fontsize{38}{43}\linespread{1}\selectfont] (titulo) at ([yshift=-0.55cm]ceja.south west)
-    {Agricultura de precisión\\ para el manejo eficiente\\ del lote};
+    {Agricultura de precisión\\ para el manejo eficiente\\ de cultivos};
   \node[anchor=north west, inner sep=0pt, text width=16.2cm, align=left, text=white!72!tinta,
         font=\light\fontsize{12.5}{17}\linespread{1}\selectfont] at ([yshift=-0.55cm]titulo.south west)
-    {Suelo, agua y nutrición: diagnóstico y plan para el lote de pasto de \AreaHa~ha en Las Mercedes de Guácimo, Limón.};
+    {Suelo, agua y nutrición: diagnóstico y plan para un lote de cultivo de \AreaHa~ha en Las Mercedes de Guácimo, Limón.};
   % ficha inferior
   \draw[white!25!tinta, line width=0.4pt] ([xshift=2.4cm, yshift=4.1cm]current page.south west) -- ([xshift=-2.4cm, yshift=4.1cm]current page.south east);
   \node[anchor=north west, inner sep=0pt] at ([xshift=2.4cm, yshift=3.7cm]current page.south west) {%
@@ -66,8 +66,8 @@
 {\xlight\fontsize{27}{32}\linespread{1}\selectfont\color{tinta}Del dato de campo\\a la decisión de manejo.\par}
 \vspace{16pt}
 \lede{\Empresa\ propone a la Finca Académica de Cultivos de la Universidad EARTH un servicio de agricultura de
-precisión para manejar de forma eficiente el lote de pasto que se desea incorporar a la producción y la enseñanza
-de cultivos: fertilización, pH, riego y drenaje decididos zona por zona.}
+precisión para manejar de forma eficiente un lote de cultivo destinado a la producción y la enseñanza:
+fertilización, pH, riego y drenaje decididos zona por zona.}
 \vspace{6pt}
 En esta primera etapa levantamos el lote con RTK-GNSS, validamos los datos, construimos su base
 cartográfica (ubicación, polígono, curvas de nivel, pendientes y humedad topográfica), definimos dos zonas de manejo
@@ -172,16 +172,15 @@ pequeñas y medianas fincas del Caribe costarricense, reconocida por hacer más 
 \lede{Nuestro cliente es \Cliente, \ClienteCargo. La finca combina producción y enseñanza: sus lotes sirven para
 prácticas de estudiantes, ensayos y producción de cultivos.}
 
-El lote de estudio, hoy cubierto de pasto, se quiere preparar para producir cultivos. Para hacerlo de forma
-eficiente hay que conocer antes su terreno, su suelo y cómo se mueve el agua, y traducirlo en un plan de
-fertilización, encalado, riego y drenaje.
+El lote de estudio es un área de cultivo de la finca. Para manejarlo de forma eficiente hay que conocer su
+terreno, su suelo y cómo se mueve el agua, y traducirlo en un plan de fertilización, encalado, riego y drenaje.
 
 \subsection{Situación actual del lote}
 \begin{itemize}
-  \item Lote casi rectangular de \AreaLote~m² (\AreaHa~ha) y \Perimetro~m de perímetro, cubierto de pasto (imagen de noviembre de 2025).
+  \item Lote de cultivo casi rectangular de \AreaLote~m² (\AreaHa~ha) y \Perimetro~m de perímetro.
   \item Terreno casi plano: según la superficie interpolada, de \ElevMin\ a \ElevMax~m\,s.\,n.\,m. aproximados, con \Relieve~m de relieve y un gradiente general de \GradPlano~\% hacia el norte.
   \item Trópico húmedo del Caribe costarricense, con lluvias abundantes casi todo el año: el exceso de agua es el principal factor de manejo.
-  \item Colinda con un camino de acceso al noreste, un lote de pasto al norte y vegetación arbórea al suroeste.
+  \item Colinda con un camino de acceso al noreste, otro lote al norte y vegetación arbórea al suroeste.
 \end{itemize}
 
 \needspace{22\baselineskip}
@@ -471,7 +470,7 @@ Cada punto se registró como punto promediado, casi siempre de \Epocas\ épocas 
 puntos) y con una ocupación típica de \Ocupacion~s; solo se aceptaron soluciones fijas. El trabajo siguió tres etapas:
 
 \begin{enumerate}
-  \item \textbf{Límite del lote} (\HoraVertices). Ocupamos las cuatro esquinas del potrero, V1 a V4, que definen el
+  \item \textbf{Límite del lote} (\HoraVertices). Ocupamos sus cuatro esquinas, V1 a V4, que definen el
   polígono, el área y el perímetro (Sección~\ref{sec:sitio}).
   \item \textbf{Puntos de levantamiento} (\HoraGrilla). Recorrimos el lote en transectos paralelos a su eje largo
   (noroeste–sureste), separados unos 9~m, con un punto cada 9~m aproximadamente: \NElev\ puntos, con una distancia
@@ -608,7 +607,7 @@ con \(K_{ij} = \phi(\lVert (x_i,y_i)-(x_j,y_j)\rVert)\), \(\mathbf{P}\) la matri
 primer término premia el ajuste a los datos y el segundo castiga las ondulaciones; el parámetro de suavizado
 \(\lambda\), proporcional a \(\lambda'\), regula el equilibrio. Con \(\lambda = 0\) la superficie pasa exactamente por
 todos los puntos; con \(\lambda > 0\) se acerca a ellos sin tocarlos y filtra el ruido vertical del RTK
-(RMS ≈ 2~cm) y el microrrelieve del pasto, que no forman parte del terreno. Usamos la implementación
+(RMS ≈ 2~cm) y el microrrelieve de la superficie del suelo, que no forman parte del terreno. Usamos la implementación
 \texttt{RBFInterpolator} de SciPy (Virtanen et~al., 2020), con las coordenadas centradas en la media de los puntos.
 
 \subtema{Elección del suavizado por validación cruzada}
