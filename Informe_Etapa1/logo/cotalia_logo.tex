@@ -1,0 +1,24 @@
+% Logo de Cotalia en archivos independientes (vectorial).  Compilar:  xelatex cotalia_logo.tex
+% Página 1: fondo claro · Página 2: fondo oscuro · Página 3: solo la marca
+\documentclass[border=14pt, varwidth=false, multi=logo]{standalone}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usepackage{xcolor}
+\definecolor{tinta}{HTML}{0C1A17}
+\definecolor{cobre}{HTML}{C4622D}
+\newfontfamily\semi{Inter-SemiBold.otf}
+\newfontfamily\monomed{IBMPlexMono-Medium.otf}
+\newcommand{\CotaliaMarca}[3]{%
+  \begin{tikzpicture}[scale=#1, line cap=round, baseline={(0,-0.32)}]
+    \draw[#2, line width=#1*2.15pt] (0,0) ++(42:1) arc[start angle=42, end angle=318, radius=1];
+    \draw[#2, line width=#1*2.15pt] (0.10,0.05) ++(48:0.70) arc[start angle=48, end angle=312, radius=0.70];
+    \draw[#2, line width=#1*2.15pt] (0.19,0.10) ++(58:0.40) arc[start angle=58, end angle=302, radius=0.40];
+    \fill[#3] (0.27,0.14) circle (0.135);
+  \end{tikzpicture}}
+\newcommand{\Logo}[3]{\CotaliaMarca{#1}{#2}{#3}\hspace{\fpeval{#1*0.42}cm}%
+  {\semi\fontsize{\fpeval{#1*26}}{\fpeval{#1*26}}\selectfont\addfontfeature{LetterSpace=-2.5}\color{#2}cotalia}}
+\begin{document}
+\begin{logo}\Logo{1.6}{tinta}{cobre}\end{logo}
+\begin{logo}\colorbox{tinta}{\hspace{18pt}\rule{0pt}{64pt}\raisebox{16pt}{\Logo{1.6}{white}{cobre}}\hspace{18pt}}\end{logo}
+\begin{logo}\CotaliaMarca{2.4}{tinta}{cobre}\end{logo}
+\end{document}

@@ -1,0 +1,20 @@
+# Downloaded imagery tiles and Python caches
+imagery_cache/
+__pycache__/
+*.pyc
+
+# Heavy or duplicate map formats (run_all.py regenerates them)
+outputs/*.tif
+outputs/*.svg
+
+# LaTeX build files
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.toc
+*.lof
+*.lot
+*.xdv
+*.synctex.gz

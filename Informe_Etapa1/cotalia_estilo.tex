@@ -1,0 +1,236 @@
+% ============================================================================
+%  COTALIA: sistema de diseño editorial
+%  Tipografía: Inter (texto y titulares) + IBM Plex Mono (etiquetas, datos)
+%  Paleta: tinta (verde casi negro), papel cálido, acento laterita (cobre)
+% ============================================================================
+\usepackage{fontspec}
+\usepackage[spanish, es-noshorthands, es-tabla, es-nodecimaldot]{babel}
+\usepackage[a4paper, top=27mm, bottom=26mm, inner=24mm, outer=24mm, headheight=12mm, headsep=9mm, footskip=12mm]{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, calc, backgrounds}
+\usepackage{pgfgantt}
+\usepackage{booktabs, tabularx, array, multirow, colortbl, longtable}
+\usepackage{catchfile}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage[nobottomtitles*]{titlesec}
+\usepackage{titletoc}
+\usepackage{ragged2e}
+\usepackage{lastpage}
+\usepackage{qrcode}
+\usepackage{microtype}
+\usepackage{needspace}
+\usepackage{etoolbox}
+\usepackage[outline]{contour}
+\contourlength{1.2pt}
+\usepackage[hidelinks]{hyperref}
+\def\UrlBreaks{\do\/}
+
+% ---------------------------------------------------------------- paleta
+\definecolor{tinta}{HTML}{0C1A17}       % casi negro, subtono verde
+\definecolor{grafito}{HTML}{2E3834}     % texto
+\definecolor{pizarra}{HTML}{717B77}     % texto secundario
+\definecolor{linea}{HTML}{D8DBD6}       % filetes
+\definecolor{niebla}{HTML}{F3F2EE}      % paneles
+\definecolor{cobre}{HTML}{C4622D}       % acento: laterita
+\definecolor{cobreclaro}{HTML}{E9A67F}
+\definecolor{dosel}{HTML}{2F6B4F}       % verde secundario
+
+% ---------------------------------------------------------------- tipografía
+\setmainfont{Inter-Regular.otf}[BoldFont=Inter-SemiBold.otf, ItalicFont=Inter-Italic.otf,
+  BoldItalicFont=Inter-SemiBoldItalic.otf, Scale=0.94, RawFeature=-calt]
+\setmonofont{IBMPlexMono-Regular.otf}[BoldFont=IBMPlexMono-Medium.otf, Scale=0.94]
+\newfontfamily\thin{Inter-Thin.otf}[RawFeature=-calt]
+\newfontfamily\xlight{Inter-ExtraLight.otf}[RawFeature=-calt]
+\newfontfamily\light{Inter-Light.otf}[RawFeature=-calt]
+\newfontfamily\medium{Inter-Medium.otf}[RawFeature=-calt]
+\newfontfamily\semi{Inter-SemiBold.otf}[RawFeature=-calt]
+\newfontfamily\monomed{IBMPlexMono-Medium.otf}
+\newfontfamily\monoreg{IBMPlexMono-Regular.otf}
+\newcommand{\tnum}{\addfontfeature{Numbers=Monospaced}}
+
+% ---------------------------------------------------------------- matemáticas (Fira Math, sans, a juego con Inter)
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmathfont{FiraMath-Regular.otf}[Scale=0.94]
+% número con coma decimal dentro de fórmulas: 0,25 -> 0{,}25 (sin espacio de puntuación tras la coma)
+\ExplSyntaxOn
+\NewDocumentCommand{\mnum}{m}{ \tl_set:Ne \l_tmpa_tl {#1} \tl_replace_all:Nnn \l_tmpa_tl {,} {{,}} \tl_use:N \l_tmpa_tl }
+\ExplSyntaxOff
+% fórmulas tras una línea corta: mismo espacio que tras una línea larga
+\makeatletter
+\g@addto@macro\normalsize{\setlength\abovedisplayshortskip{\abovedisplayskip}\setlength\belowdisplayshortskip{\belowdisplayskip}}
+\makeatother
+\newtagform{cotalia}{\monoreg\fontsize{7.6}{9}\selectfont\color{pizarra}(}{)}
+\usetagform{cotalia}
+\setlength{\jot}{6pt}
+
+% ---------------------------------------------------------------- logotipos de la tecnología usada
+\linespread{1.32}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\AtBeginDocument{\color{grafito}}
+\frenchspacing
+\AtBeginDocument{\RaggedRight}
+\setlength{\emergencystretch}{2.5em}
+\renewcommand{\bottomtitlespace}{0.18\textheight}
+
+% etiqueta superior (eyebrow): mono, mayúsculas, espaciada
+\newcommand{\eyebrow}[2][cobre]{\leavevmode{\hyphenpenalty=10000\monomed\fontsize{6.8}{9}\selectfont\addfontfeature{LetterSpace=14}\color{#1}\MakeUppercase{#2}}}
+\newcommand{\lede}[1]{\leavevmode{\light\fontsize{13.2}{19.8}\linespread{1}\selectfont\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\color{tinta}#1\par}\vspace{0.7em}}
+\newcommand{\datos}[1]{{\monoreg\small#1}}
+
+% ---------------------------------------------------------------- numeración 01, 02...
+\makeatletter
+\renewcommand{\thesection}{\two@digits{\value{section}}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thefigure}{\two@digits{\value{figure}}}
+\renewcommand{\thetable}{\two@digits{\value{table}}}
+\renewcommand{\theequation}{\two@digits{\value{equation}}}
+\newcommand{\numpag}{\two@digits{\value{page}}}
+\newcommand{\indice}{\@starttoc{toc}}
+\makeatother
+
+% ---------------------------------------------------------------- títulos
+\newcommand{\sectionbreak}{\clearpage}
+\titleformat{\section}[display]
+  {\normalfont}
+  {\thin\fontsize{54}{54}\selectfont\color{cobre}\thesection}
+  {6pt}
+  {\xlight\fontsize{29}{34}\linespread{1}\selectfont\color{tinta}}
+  [\vspace{2pt}{\color{linea}\rule{\linewidth}{0.4pt}}]
+\titlespacing*{\section}{0pt}{-4pt}{12pt}
+\titleformat{\subsection}[display]
+  {\semi\fontsize{12.5}{16}\selectfont\color{tinta}}
+  {\eyebrow{\thesubsection}}
+  {3pt}
+  {}
+\titlespacing*{\subsection}{0pt}{16pt}{5pt}
+
+% índice
+\contentsmargin{0pt}
+\makeatletter
+\titlecontents{section}[2.6em]{\addvspace{7pt}}
+  {\contentslabel[{\monomed\fontsize{8}{10}\selectfont\color{cobre}\thecontentslabel}]{2.6em}\medium\color{tinta}}
+  {\hspace*{-2.6em}\medium\color{tinta}}
+  {\hfill{\monoreg\small\color{pizarra}\two@digits{\thecontentspage}}}
+  [\vspace{3pt}{\color{linea}\hrule height 0.3pt}]
+\makeatother
+
+% ---------------------------------------------------------------- logo (vectorial)
+% Marca: tres curvas de nivel excéntricas y abiertas forman una "C"; el punto de cobre es la cota.
+\newcommand{\CotaliaMarca}[3]{% #1 escala, #2 color del trazo, #3 color del punto
+  \begin{tikzpicture}[scale=#1, line cap=round, baseline={(0,-0.32)}]
+    \draw[#2, line width=#1*2.15pt] (0,0) ++(42:1) arc[start angle=42, end angle=318, radius=1];
+    \draw[#2, line width=#1*2.15pt] (0.10,0.05) ++(48:0.70) arc[start angle=48, end angle=312, radius=0.70];
+    \draw[#2, line width=#1*2.15pt] (0.19,0.10) ++(58:0.40) arc[start angle=58, end angle=302, radius=0.40];
+    \fill[#3] (0.27,0.14) circle (0.135);
+  \end{tikzpicture}}
+\newcommand{\CotaliaLogo}[3]{% #1 escala, #2 color, #3 color del punto
+  \mbox{\CotaliaMarca{#1}{#2}{#3}\hspace{\fpeval{#1*0.42}cm}%
+  {\semi\fontsize{\fpeval{#1*26}}{\fpeval{#1*26}}\selectfont\addfontfeature{LetterSpace=-2.5}\color{#2}cotalia}}}
+
+% ---------------------------------------------------------------- encabezado y pie
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\raisebox{-1pt}{\CotaliaMarca{0.13}{tinta}{cobre}}\hspace{5pt}{\semi\fontsize{8.5}{10}\selectfont\color{tinta}\addfontfeature{LetterSpace=-1}cotalia}}
+\fancyhead[R]{\eyebrow[pizarra]{Etapa 01 \,/\, Propuesta de servicios}}
+\fancyfoot[L]{\eyebrow[pizarra]{Finca Académica EARTH \,/\, Lote de pasto \AreaHa~ha}}
+\fancyfoot[R]{{\monomed\fontsize{7.5}{9}\selectfont\color{tinta}\numpag}{\monoreg\fontsize{7.5}{9}\selectfont\color{pizarra}\,/\,\pageref{LastPage}}}
+\fancypagestyle{plain}{}
+
+% ---------------------------------------------------------------- tablas, listas, leyendas
+\newcommand{\cab}[1]{\leavevmode{\monomed\fontsize{6.6}{8}\selectfont\addfontfeature{LetterSpace=10}\color{pizarra}#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\renewcommand{\arraystretch}{1.5}
+\AtBeginEnvironment{table}{\fontsize{8.9}{12.4}\linespread{1}\selectfont}
+\setlength{\heavyrulewidth}{0.7pt}
+\setlength{\lightrulewidth}{0.3pt}
+\setlength{\cmidrulewidth}{0.3pt}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\newcommand{\filete}{\arrayrulecolor{linea}\midrule\arrayrulecolor{tinta}}
+
+\setlist[itemize]{label={\color{cobre}\rule[0.28em]{0.55em}{0.7pt}}, leftmargin=1.5em, itemsep=0.25em, topsep=0.3em}
+\setlist[enumerate]{label={\monomed\small\color{cobre}0\arabic*}, leftmargin=2.2em, itemsep=0.35em, topsep=0.3em}
+
+\DeclareCaptionFont{capetq}{\monomed\fontsize{6.8}{9}\selectfont\addfontfeature{LetterSpace=12}\color{cobre}}
+\DeclareCaptionFont{captxt}{\fontsize{8.3}{12.2}\linespread{1}\selectfont\color{pizarra}}
+\DeclareCaptionLabelFormat{mayus}{\MakeUppercase{#1}~#2}
+\captionsetup{labelfont=capetq, textfont=captxt, labelformat=mayus, labelsep=quad,
+  justification=raggedright, singlelinecheck=false, skip=8pt}
+\captionsetup[figure]{name=Fig.}
+\captionsetup[table]{name=Tabla, position=top, skip=6pt}
+
+% tarjeta de cifra clave
+\newcommand{\cifra}[3]{% #1 valor, #2 unidad, #3 etiqueta
+  \begin{minipage}[t]{\linewidth}
+    {\color{tinta}\rule{\linewidth}{0.7pt}}\par\vspace{6pt}
+    {\xlight\fontsize{30}{32}\linespread{1}\selectfont\color{tinta}#1}{\light\fontsize{12}{14}\selectfont\color{pizarra}\,#2}\par\vspace{4pt}
+    \eyebrow[pizarra]{#3}
+  \end{minipage}}
+
+% celda de característica (rejilla de fortalezas)
+\newcommand{\rasgo}[2]{%
+  \begin{minipage}[t]{\linewidth}
+    {\color{linea}\rule{\linewidth}{0.4pt}}\par\vspace{5pt}
+    {\semi\color{tinta}#1}\par\vspace{2pt}
+    {\fontsize{8.8}{13}\linespread{1}\selectfont #2}
+  \end{minipage}}
+
+% estado de un entregable: completado (círculo lleno), parcial (medio), pendiente (vacío)
+\newcommand{\marcaC}{\tikz[baseline=-0.55ex]\fill[tinta] (0,0) circle (0.95mm);}
+\newcommand{\marcaP}{\tikz[baseline=-0.55ex]{\fill[cobre] (0,-0.95mm) arc[start angle=-90, end angle=90, radius=0.95mm] -- cycle;
+  \draw[cobre, line width=0.6pt] (0,0) circle (0.95mm);}}
+\newcommand{\marcaN}{\tikz[baseline=-0.55ex]\draw[pizarra, line width=0.6pt] (0,0) circle (0.95mm);}
+\newcommand{\estC}{\leavevmode\marcaC\hspace{4pt}{\semi\color{tinta}Completado}}
+\newcommand{\estP}{\leavevmode\marcaP\hspace{4pt}{\semi\color{cobre}Parcial}}
+\newcommand{\estN}{\leavevmode\marcaN\hspace{4pt}{\color{pizarra}Pendiente}}
+\newcommand{\entregable}[2]{\leavevmode{\semi\color{tinta}#1}\par{\monoreg\fontsize{6.8}{9}\selectfont\color{pizarra}#2}}
+
+% casilla de avance por entregable (tira de progreso)
+\tikzset{celda/.style={minimum width=1.28cm, minimum height=0.95cm, inner sep=0pt, font=\monomed\fontsize{9}{10}\selectfont}}
+\newcommand{\celda}[3]{% #1 x, #2 número, #3 estado C/P/N
+  \ifx#3C\node[celda, fill=tinta, text=white] at (#1,0) {#2};\fi
+  \ifx#3P\node[celda, draw=cobre, line width=0.6pt, text=cobre,
+      path picture={\fill[cobre] (path picture bounding box.south west) rectangle ([yshift=0.16cm]path picture bounding box.south);}] at (#1,0) {#2};\fi
+  \ifx#3N\node[celda, draw=linea, line width=0.6pt, text=pizarra] at (#1,0) {#2};\fi}
+
+% globo en color para EGM2008 (modelo del geoide, sin logotipo propio)
+\definecolor{globo}{HTML}{2F74B5}
+\newcommand{\globoicono}{%
+  \begin{tikzpicture}[baseline=0pt, x=1pt, y=1pt]
+    \fill[globo] (12.5,12.5) circle (12.5);
+    \begin{scope}
+      \clip (12.5,12.5) circle (12.5);
+      \foreach \rx in {4.5,9} {\draw[white, line width=0.55pt] (12.5,12.5) ellipse [x radius=\rx, y radius=12.5];}
+      \draw[white, line width=0.55pt] (12.5,0) -- (12.5,25);
+      \foreach \y in {5.5,12.5,19.5} {\draw[white, line width=0.55pt] (0,\y) -- (25,\y);}
+    \end{scope}
+    \draw[cobre, line width=1.4pt] (12.5,12.5) circle (12.5);
+  \end{tikzpicture}}
+
+% tarjeta de tecnología: logotipo, nombre, versión y función
+\newcommand{\pila}[4]{%
+  \begin{minipage}[t]{\linewidth}
+    \setlength{\parskip}{0pt}%
+    {\color{linea}\rule{\linewidth}{0.4pt}}\par\vspace{10pt}
+    {\color{tinta}\fontsize{25}{25}\selectfont\raisebox{0pt}[26pt][2pt]{#1}}\par\vspace{8pt}
+    {\semi\color{tinta}#2}\hspace{5pt}{\monoreg\fontsize{7}{9}\selectfont\color{pizarra}#3}\par\vspace{3pt}
+    {\fontsize{8.3}{12}\linespread{1}\selectfont #4}
+  \end{minipage}}
+
+% subtítulo menor dentro de una subsección: no queda solo al pie de la página
+\newcommand{\subtema}[1]{\par\needspace{5\baselineskip}\eyebrow[pizarra]{#1}\par\vspace{2pt}}
+
+% nota lateral
+\newcommand{\nota}[1]{\leavevmode{\fontsize{8.3}{12.4}\linespread{1}\selectfont\color{pizarra}#1\par}}
+
+\graphicspath{{../outputs/}{../}}

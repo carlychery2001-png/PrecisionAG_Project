@@ -1,0 +1,5 @@
+# Tested with Python 3.13, NumPy 2.5.3, SciPy 1.18.1, Matplotlib 3.11.2 and Pillow 12.3.0
+numpy>=2.0
+scipy>=1.13
+matplotlib>=3.8
+pillow>=10.0
