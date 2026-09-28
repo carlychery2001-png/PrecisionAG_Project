@@ -9,7 +9,7 @@ ocho muestras de suelo. Con esos datos construimos el modelo de elevación del l
 pendientes, la humedad topográfica, dos zonas de manejo y el mapa de muestreo. Todo lo que aparece en el informe se
 puede regenerar desde los datos con un solo comando.
 
-**Informe final:** [`Informe_Etapa1/Cotalia_Etapa1.pdf`](Informe_Etapa1/Cotalia_Etapa1.pdf)
+**Informe final:** [`Informe_Etapa1/Entrega1_Tyrone_Jessie_Carly_Felix_FincaAcademica_270926.pdf`](Informe_Etapa1/Entrega1_Tyrone_Jessie_Carly_Felix_FincaAcademica_270926.pdf)
 
 *English summary: RTK-GNSS survey (143 points) and soil sampling of a 0.98 ha field at EARTH University, Costa Rica,
 with the Python code that builds the elevation model (thin-plate spline, cross-validated), contour, slope, wetness,

@@ -13,6 +13,8 @@ import sys
 import time
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+# Course naming rule: Entrega1_Integrantes_Finca_Lotes_fecha (lot number still to be added)
+REPORT_NAME = "Entrega1_Tyrone_Jessie_Carly_Felix_FincaAcademica_270926"
 
 # Order matters: site_maps.py and method_figures.py read the tables and captions written by precision_maps.py,
 # and report_art.py reads outputs/Sampling_Plan.csv.
@@ -40,11 +42,12 @@ def main():
     report = os.path.join(ROOT, "Informe_Etapa1")
     if not shutil.which("latexmk"):
         print("\nlatexmk not found: install MiKTeX or TeX Live, then run in Informe_Etapa1/:"
-              "\n    latexmk -xelatex Cotalia_Etapa1.tex")
+              f"\n    latexmk -xelatex -jobname={REPORT_NAME} Cotalia_Etapa1.tex")
         return
-    run(["latexmk", "-xelatex", "-interaction=nonstopmode", "-halt-on-error", "Cotalia_Etapa1.tex"], report)
-    run(["latexmk", "-c", "Cotalia_Etapa1.tex"], report)
-    print("\nReport:", os.path.join(report, "Cotalia_Etapa1.pdf"))
+    run(["latexmk", "-xelatex", "-interaction=nonstopmode", "-halt-on-error", f"-jobname={REPORT_NAME}",
+         "Cotalia_Etapa1.tex"], report)
+    run(["latexmk", "-c", f"-jobname={REPORT_NAME}", "Cotalia_Etapa1.tex"], report)
+    print("\nReport:", os.path.join(report, REPORT_NAME + ".pdf"))
 
 
 if __name__ == "__main__":
